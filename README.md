@@ -13,10 +13,10 @@
 
 ### 几个要用到的redis命令：
 
-setnx(key, value)：“set if not exits”，若该key-value不存在，则成功加入缓存并且返回1，否则返回0。
-get(key)：获得key对应的value值，若不存在则返回nil。
-getset(key, value)：先获取key对应的value值，若不存在则返回nil，然后将旧的value更新为新的value。
-expire(key, seconds)：设置key-value的有效期为seconds秒。
+| setnx(key, value)：“set if not exits”，若该key-value不存在，则成功加入缓存并且返回1，否则返回0。
+| get(key)：获得key对应的value值，若不存在则返回nil。
+| getset(key, value)：先获取key对应的value值，若不存在则返回nil，然后将旧的value更新为新的value。
+| expire(key, seconds)：设置key-value的有效期为seconds秒。
 
 
 
