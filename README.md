@@ -13,21 +13,21 @@
 
 ### 几个要用到的redis命令：
 
-setnx(key, value)：“set if not exits”，若该key-value不存在，则成功加入缓存并且返回1，否则返回0。\n
+setnx(key, value)：“set if not exits”，若该key-value不存在，则成功加入缓存并且返回1，否则返回0。</br>
 get(key)：获得key对应的value值，若不存在则返回nil。</br>
-| getset(key, value)：先获取key对应的value值，若不存在则返回nil，然后将旧的value更新为新的value。
-| expire(key, seconds)：设置key-value的有效期为seconds秒。
+getset(key, value)：先获取key对应的value值，若不存在则返回nil，然后将旧的value更新为新的value。</br>
+expire(key, seconds)：设置key-value的有效期为seconds秒。</br>
 
 
 
 ### 基于ZooKeeper的实现方式
 ZooKeeper是一个为分布式应用提供一致性服务的开源组件，它内部是一个分层的文件系统目录树结构，规定同一个目录下只能有一个唯一文件名。基于ZooKeeper实现分布式锁的步骤如下：
 
-（1）创建一个目录mylock； 
-（2）线程A想获取锁就在mylock目录下创建临时顺序节点； 
-（3）获取mylock目录下所有的子节点，然后获取比自己小的兄弟节点，如果不存在，则说明当前线程顺序号最小，获得锁； 
-（4）线程B获取所有节点，判断自己不是最小节点，设置监听比自己次小的节点； 
-（5）线程A处理完，删除自己的节点，线程B监听到变更事件，判断自己是不是最小的节点，如果是则获得锁。
+（1）创建一个目录mylock； </br>
+（2）线程A想获取锁就在mylock目录下创建临时顺序节点； </br>
+（3）获取mylock目录下所有的子节点，然后获取比自己小的兄弟节点，如果不存在，则说明当前线程顺序号最小，获得锁； </br>
+（4）线程B获取所有节点，判断自己不是最小节点，设置监听比自己次小的节点； </br>
+（5）线程A处理完，删除自己的节点，线程B监听到变更事件，判断自己是不是最小的节点，如果是则获得锁。</br>
 
 这里推荐一个Apache的开源库Curator，它是一个ZooKeeper客户端，Curator提供的InterProcessMutex是分布式锁的实现，acquire方法用于获取锁，release方法用于释放锁。
 
