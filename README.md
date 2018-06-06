@@ -35,7 +35,7 @@ ZooKeeper是一个为分布式应用提供一致性服务的开源组件，它�
 
 缺点：因为需要频繁的创建和删除节点，性能上不如Redis方式。
 
-## PS: nginx 负载均衡实现分布式部署
+## PS: nginx 负载均衡实现分布式部署及测试代码
 
 ```javascript
 http {
@@ -57,3 +57,31 @@ http {
 
     # ... 省略其它配置
 }
+
+public class Test {
+
+    public static void main(String[] args){
+
+        MyThread r = new MyThread();
+        ExecutorService executorService = Executors.newFixedThreadPool(5);
+        for (int i=0;i<30;i++){
+            executorService.execute(r);
+        }
+
+    }
+
+    static class MyThread implements Runnable{
+
+        public void run() {
+            HttpClient client = new DefaultHttpClient();
+            //发送get请求
+            HttpGet request = new HttpGet("http://127.0.0.1:8080/lock/data/test");
+            try {
+                HttpResponse response = client.execute(request);
+                System.out.print(EntityUtils.toString(response.getEntity()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
