@@ -34,3 +34,26 @@ ZooKeeper是一个为分布式应用提供一致性服务的开源组件，它�
 优点：具备高可用、可重入、阻塞锁特性，可解决失效死锁问题。
 
 缺点：因为需要频繁的创建和删除节点，性能上不如Redis方式。
+
+## PS: nginx 负载均衡实现分布式部署
+
+```javascript
+http {
+
+    # ... 省略其它配置
+
+    upstream tomcats {
+        server 192.168.0.100:8080;
+        server 192.168.0.101:8080;
+    }
+
+    server {
+        listen 80;
+
+        location / {
+            proxy_pass http://tomcats;
+        }
+    }
+
+    # ... 省略其它配置
+}
