@@ -33,7 +33,7 @@ public class ApplicationTests {
         public void run() {
             HttpClient client = new DefaultHttpClient();
             //发送get请求
-            HttpGet request = new HttpGet("http://127.0.0.1:8080/lock/v1/coach/disease/list");
+            HttpGet request = new HttpGet("http://127.0.0.1:8080/lock/data/test");
             try {
                 HttpResponse response = client.execute(request);
             } catch (IOException e) {

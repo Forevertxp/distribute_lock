@@ -51,6 +51,7 @@ public class DataServiceImpl implements DataService {
                         System.out.print(type+",");
                         record.setCount(type);
                         dataMapper.updateByPrimaryKey(record);
+                        // 增加延时 用于测试
                         Thread.sleep(1000);
 
                     } catch (InterruptedException e) {
